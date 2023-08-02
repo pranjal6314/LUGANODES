@@ -7,21 +7,47 @@ import jsonewebtoken from "jsonwebtoken";
 const handler = async (req, res) => {
   if (req.method === "POST") {
     console.log(req.body);
+
     let token = req.body.token;
+
+    console.log("token", token);
     const user = jsonewebtoken.verify(token, "ourkey");
-    let dbuser = await User.findOneAndUpdate(
-      { email: user.email },
-      {
-        name: req.body.name,
-        metamaskaddress: req.body.metamaskaddress,
-        address: req.body.address,
-        pin: req.body.pin,
-        phone: req.body.phone,
-        pan: req.body.pan,
-        gstin: req.body.gstin,
-        image: req.body.image,
-      }
-    );
+    if (req.body.metamask) {
+      let dbuser = await User.findOneAndUpdate(
+        { metamaskaddress: req.body.metamask },
+
+        {
+          name: req.body.name,
+          address: req.body.address,
+          pin: req.body.pin,
+          phone: req.body.phone,
+          pan: req.body.pan,
+          gstin: req.body.gstin,
+          image: req.body.image,
+          email: req.body.email,
+          password: CryptoJS.AES.encrypt(
+            req.body.password,
+            "sec1234"
+          ).toString(),
+        }
+      );
+    } else {
+      let dbuser = await User.findOneAndUpdate(
+        { email: user.email },
+
+        {
+          name: req.body.name,
+          metamaskaddress: req.body.metamaskaddress,
+          address: req.body.address,
+          pin: req.body.pin,
+          phone: req.body.phone,
+          pan: req.body.pan,
+          gstin: req.body.gstin,
+          image: req.body.image,
+        }
+      );
+    }
+
     const {
       name,
       address,
@@ -32,7 +58,8 @@ const handler = async (req, res) => {
       pan,
       image,
       metamaskaddress,
-    } = dbuser;
+      password,
+    } = user;
     res.status(200).json({
       name,
       metamaskaddress,
@@ -43,6 +70,7 @@ const handler = async (req, res) => {
       gstin,
       pan,
       image,
+      password,
       success: true,
     });
   } else {

@@ -1,5 +1,4 @@
 import User from "../../models/User";
-import Bill from "../../models/Bill";
 import connectDb from "../../middleware/monooges";
 var CryptoJS = require("crypto-js");
 import jsonewebtoken from "jsonwebtoken";
@@ -9,9 +8,10 @@ const handler = async (req, res) => {
     let token = req.body.token;
     const user = jsonewebtoken.verify(token, "ourkey");
     let dbuser = await User.findOne({ email: user.email });
-
+    console.log(dbuser.password);
     const bytes = CryptoJS.AES.decrypt(dbuser.password, "sec1234");
     var decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+    console.log(decryptedData);
     if (
       decryptedData === req.body.password &&
       req.body.newpassword === req.body.confirmPassword
