@@ -3,11 +3,21 @@ import connectDb from "../../middleware/monooges";
 var CryptoJS = require("crypto-js");
 const handler = async (req, res) => {
   if (req.method === "POST") {
-    const { name, email, password, phone, pin, gstin, address, pan } = req.body;
-    let user = await User.findOne({ email: email });
-    if (user) {
-      res.status(200).json({ success: false, error: "user already exist" });
-    }
+    const {
+      name,
+      email,
+      password,
+      phone,
+      pin,
+      gstin,
+      address,
+      pan,
+      metamaskaddress,
+    } = req.body;
+    // let user = await User.findOne({ email: email });
+    // if (user) {
+    //   res.status(200).json({ success: false, error: "user already exist" });
+    // }
     let u = new User({
       name,
       email,
@@ -17,6 +27,7 @@ const handler = async (req, res) => {
       gstin,
       address,
       pan,
+      metamaskaddress,
     });
 
     await u.save();
