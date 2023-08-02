@@ -6,6 +6,7 @@ import User from "@/models/User";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { set } from "mongoose";
+import updatepassword from "./api/updatepassword";
 const Profile = () => {
   const router = useRouter();
   const [user, setUser] = useState({ value: null });
@@ -24,6 +25,8 @@ const Profile = () => {
   const [gstin, setGstin] = useState("");
   const [phone, setphone] = useState("");
   const [image, setImage] = useState("");
+  const [ifPassword, setIfPassword] = useState(true);
+  const [profilePassword, setProfilePassword] = useState("");
   useEffect(() => {
     //console.log("useEffect in profile");
     const token = localStorage.getItem("token");
@@ -60,6 +63,7 @@ const Profile = () => {
     else if (e.target.name == "gstin") setGstin(e.target.value);
     else if (e.target.name == "password") setPassword(e.target.value);
     else if (e.target.name == "newpassword") setnewPassword(e.target.value);
+    else if (e.target.name == "ifPassword") setProfilePassword(e.target.value);
     else if (e.target.name == "confirmpassword") {
       SetconfirmPassword(e.target.value);
     }
@@ -81,7 +85,9 @@ const Profile = () => {
   };
 
   const fetchuser = async (token) => {
-    let data = { token: token };
+    let data = {
+      token: token,
+    };
     let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getuser`, {
       method: "POST",
       headers: {
@@ -96,22 +102,28 @@ const Profile = () => {
     setAddress(responce.address);
     setGstin(responce.gstin);
     setPan(responce.pan);
+    setEmail(responce.email);
     setphone(responce.phone);
     setImage(responce.image);
     setMyadd(responce.metamaskaddress);
+    if (!responce.password || responce.password == "") {
+      setIfPassword(false);
+    }
     // setMaskadd(responce.metamaskaddress);
   };
 
   const handleUserSubmit = async (e) => {
     let data = {
       token: user.value,
-      metamaskaddress: metamaskaddress ? metamaskaddress : maskadd,
+      metamask: metamaskaddress ? metamaskaddress : maskadd,
+      email,
       address,
       name,
       phone,
       gstin,
       pan,
       image,
+      password: profilePassword,
     };
     console.log(data);
     let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/updateuser`, {
@@ -290,6 +302,25 @@ const Profile = () => {
                 />
               </div>
             )}
+            {!ifPassword && (
+              <div className="mb-4">
+                <label
+                  className="text-gray-700 font-bold mb-2"
+                  htmlFor="ifPassword"
+                >
+                  set password
+                </label>
+                <input
+                  className="w-full border border-gray-300 p-2 rounded-md"
+                  type="text"
+                  id="ifPassword"
+                  value={profilePassword}
+                  placeholder="Set password for this account"
+                  name="ifPassword"
+                  onChange={handleChange}
+                />
+              </div>
+            )}
             {metamaskaddress ? (
               <div className="mb-4">
                 <label className="text-gray-700 font-bold mb-2" htmlFor="Myadd">
@@ -324,6 +355,7 @@ const Profile = () => {
                 />
               </div>
             )}
+
             <div className="mb-4">
               <label className="text-gray-700 font-bold mb-2" htmlFor="address">
                 Address
