@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import User from "@/models/User";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { set } from "mongoose";
 const Profile = () => {
   const router = useRouter();
   const [user, setUser] = useState({ value: null });
@@ -15,6 +16,7 @@ const Profile = () => {
   const [confirmPassword, SetconfirmPassword] = useState("");
   const [email, setEmail] = useState("");
   const [metamaskaddress, setMyadd] = useState("");
+  const [maskadd, setMaskadd] = useState("");
   const [clientId, setClientId] = useState(null);
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -50,6 +52,8 @@ const Profile = () => {
 
   const handleChange = (e) => {
     if (e.target.name == "name") setName(e.target.value);
+    else if (e.target.id == "email") setEmail(e.target.value);
+    else if (e.target.id == "maskadd") setMaskadd(e.target.value);
     else if (e.target.name == "address") setAddress(e.target.value);
     else if (e.target.name == "phone") setphone(e.target.value);
     else if (e.target.name == "pan") setPan(e.target.value);
@@ -85,20 +89,23 @@ const Profile = () => {
       },
       body: JSON.stringify(data),
     });
+
     let responce = await res.json();
-    //console.log(responce);
+    console.log(responce);
     setName(responce.name);
     setAddress(responce.address);
     setGstin(responce.gstin);
     setPan(responce.pan);
     setphone(responce.phone);
     setImage(responce.image);
+    setMyadd(responce.metamaskaddress);
+    // setMaskadd(responce.metamaskaddress);
   };
 
   const handleUserSubmit = async (e) => {
     let data = {
       token: user.value,
-      metamaskaddress,
+      metamaskaddress: metamaskaddress ? metamaskaddress : maskadd,
       address,
       name,
       phone,
@@ -106,7 +113,7 @@ const Profile = () => {
       pan,
       image,
     };
-    //console.log(data);
+    console.log(data);
     let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/updateuser`, {
       method: "POST",
       headers: {
@@ -115,7 +122,7 @@ const Profile = () => {
       body: JSON.stringify(data),
     });
     let responce = await res.json();
-    //console.log(responce);
+    console.log(responce);
     if (responce.success) {
       toast.success("Your info updated !", {
         position: "bottom-left",
@@ -225,20 +232,20 @@ const Profile = () => {
                 onChange={handleChange}
               />
             </div>
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label className="text-gray-700 font-bold mb-2" htmlFor="email">
                 Email
               </label>
               <input
-                readOnly
                 className="w-full border border-gray-300 p-2 rounded-md"
                 type="text"
+                name="email"
                 id="email"
                 value={email}
                 onChange={handleChange}
               />
-            </div>
-            <div className="mb-4">
+            </div> */}
+            {/* <div className="mb-4">
               <label className="text-gray-700 font-bold mb-2" htmlFor="Myadd">
                 MetaMask Address
               </label>
@@ -246,11 +253,77 @@ const Profile = () => {
                 readOnly
                 className="w-full border border-gray-300 p-2 rounded-md"
                 type="text"
+                placeholder="your metamask address"
                 id="Myadd"
+                name="Myadd"
                 value={metamaskaddress}
                 onChange={handleChange}
               />
-            </div>
+            </div> */}
+
+            {email ? (
+              <div className="mb-4">
+                <label className="text-gray-700 font-bold mb-2" htmlFor="email">
+                  Email
+                </label>
+                <input
+                  className="w-full border border-gray-300 p-2 rounded-md"
+                  type="text"
+                  name="email"
+                  id="email"
+                  value={email}
+                  onChange={handleChange}
+                />
+              </div>
+            ) : (
+              <div className="mb-4">
+                <label className="text-gray-700 font-bold mb-2" htmlFor="email">
+                  Enter Email
+                </label>
+                <input
+                  className="w-full border border-gray-300 p-2 rounded-md"
+                  type="text"
+                  name="email"
+                  id="email"
+                  value={email}
+                  onChange={handleChange}
+                />
+              </div>
+            )}
+            {metamaskaddress ? (
+              <div className="mb-4">
+                <label className="text-gray-700 font-bold mb-2" htmlFor="Myadd">
+                  MetaMask Address
+                </label>
+                <input
+                  readOnly
+                  className="w-full border border-gray-300 p-2 rounded-md"
+                  type="text"
+                  id="Myadd"
+                  name="Myadd"
+                  value={metamaskaddress}
+                  onChange={handleChange}
+                />
+              </div>
+            ) : (
+              <div className="mb-4">
+                <label
+                  className="text-gray-700 font-bold mb-2"
+                  htmlFor="maskadd"
+                >
+                  Enter MetaMask Address
+                </label>
+                <input
+                  className="w-full border border-gray-300 p-2 rounded-md"
+                  type="text"
+                  placeholder="your metamask address"
+                  id="maskadd"
+                  name="maskadd"
+                  value={maskadd}
+                  onChange={handleChange}
+                />
+              </div>
+            )}
             <div className="mb-4">
               <label className="text-gray-700 font-bold mb-2" htmlFor="address">
                 Address
