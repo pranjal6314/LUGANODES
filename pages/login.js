@@ -7,8 +7,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
 import { GoogleLogin } from "@react-oauth/google";
-// import GoogleLogin from "react-google-login";
-// import { ethers } from "ethers";
 import Web3 from "web3";
 import ConnectWalletButton from "./ConnectWalletButton";
 const login = () => {
@@ -84,19 +82,10 @@ const login = () => {
 
         const account = Web3.utils.toChecksumAddress(accounts[0]);
         setAddress(account);
-        // const formbody = { account };
-        // let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/metamask`, {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify(formbody),
-        // });
-        // let responce = await res.json();
-        // console.log(responce);
+
         if (account) {
           // localStorage.setItem("token", "");
-          localStorage.setItem("email", "pranjalchoudhary270@gmail.com");
+          localStorage.setItem("email", "enter your email");
           localStorage.setItem("metamaskaddress", account);
           toast.success("you are successfully logged in!", {
             position: "bottom-left",
@@ -109,6 +98,19 @@ const login = () => {
             theme: "colored",
           });
           // setTimeout(() => {
+          const formbody = { metamask: account };
+
+          let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/login`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formbody),
+          });
+          let responce = await res.json();
+          console.log(responce);
+          localStorage.setItem("token", responce.token);
+          localStorage.setItem("email", responce.email);
           router.push("/home");
           // }, 2000);
         } else {
@@ -135,7 +137,8 @@ const login = () => {
   const responseMessage = (response) => {
     if (response.clientId) {
       // localStorage.setItem("token", "");
-      localStorage.setItem("email", "pranjalchoudhary270@gmail.com");
+
+      localStorage.setItem("email", "enter your email");
       localStorage.setItem("clientId", response.clientId);
       toast.success("you are successfully logged in!", {
         position: "bottom-left",
