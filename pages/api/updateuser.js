@@ -6,11 +6,10 @@ import jsonewebtoken from "jsonwebtoken";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
-    console.log(req.body);
-
     let token = req.body.token;
 
-    console.log("token", token);
+    // console.log("token", token);
+    // const user = jsonewebtoken.verify(token, "ourkey");
     const user = jsonewebtoken.verify(token, "ourkey");
     if (req.body.metamask) {
       let dbuser = await User.findOneAndUpdate(
@@ -33,7 +32,8 @@ const handler = async (req, res) => {
       );
     } else {
       let dbuser = await User.findOneAndUpdate(
-        { email: user.email },
+        // { email: user.email },
+        { _id: user.userid },
 
         {
           name: req.body.name,
@@ -60,6 +60,7 @@ const handler = async (req, res) => {
       metamaskaddress,
       password,
     } = user;
+
     res.status(200).json({
       name,
       metamaskaddress,
