@@ -93,7 +93,7 @@ The project aims to develop a web application that provides a flexible authentic
 ### User Dashboard:
 
 - Creation of an interactive and personalized user dashboard.
-- Display of user-specific information, such as profile details, account settings, and preferences.
+- Display user-specific information, such as profile details, account settings, and preferences.
 - Options for users to manage their account information and update settings.
 
 ### Account Recovery Mechanism:
@@ -126,7 +126,7 @@ The project aims to develop a web application that provides a flexible authentic
 - Allow users to customize their profiles with avatars, usernames, and other optional details.
 - Personalization options for users to enhance their experience on the website.
 
-## ⚒️ Tech Stack
+## ⚒⚙️ Tech Stack
 
 <ul>
 <li>Next.js</li>
@@ -172,6 +172,20 @@ In order to build the project and run, use:
 npm run build
 npm start
 ```
+
+#### 1. Using Docker
+In order to test our service we first need to build and run docker-compose. Docker-compose will automate the build and the run of our two Dockerfile.
+To run this commands you must be in the repository’s root.
+1. Build the Image
+```bash
+docker-compose build
+```
+2. Start the service
+```bash
+docker-compose up -d
+```
+Now we have and built the image and service is started for both **go** and **nginx** (used for reverse-proxy).
+The Nginx reverse proxy will send all request from `localhost/fortisafe/` to Golang service on port `3000`.
 
 > **Note that you will have to add your own `.env` file at the root directory and add your own environment variables for the project to build.**
 > Following are the environment variables used:
