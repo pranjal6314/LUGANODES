@@ -42,8 +42,9 @@ const signup = () => {
     setPassword("");
 
     if (responce.success) {
-      localStorage.setItem("token", responce.token);
-      localStorage.setItem("email", responce.email);
+      // localStorage.setItem("token", responce.token);
+      // localStorage.setItem("email", responce.email);
+
       toast.success("your account has been created! Now click login", {
         position: "bottom-left",
         autoClose: 2000,
@@ -54,6 +55,7 @@ const signup = () => {
         progress: undefined,
         theme: "colored",
       });
+      router.push("/login");
     } else {
       toast.warn("You already have an account with this Email!", {
         position: "top-right",
