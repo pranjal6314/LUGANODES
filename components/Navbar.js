@@ -11,7 +11,7 @@ import { BsFillBagCheckFill } from "react-icons/bs";
 import { MdAccountCircle } from "react-icons/md";
 
 const Navbar = ({ user, logout, Myaddress, clientId }) => {
-  console.log(clientId);
+  // console.log(clientId);
   const ref = useRef(null);
 
   const [dropdown, setDropdown] = useState(false);

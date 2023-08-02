@@ -8,9 +8,9 @@ async function main() {
 }
 const UserSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true },
+    name: { type: String },
     metamaskaddress: { type: String, default: "" },
-    password: { type: String, required: true },
+    password: { type: String },
     address: { type: String, default: "" },
     phone: { type: String, default: "" },
     gstin: { type: String, default: "" },
@@ -25,7 +25,7 @@ const UserSchema = new mongoose.Schema(
     //   contentType: String,
     // },
 
-    email: { type: String, required: true, unique: true },
+    email: { type: String, unique: true },
   },
   { timestamps: true }
 );
