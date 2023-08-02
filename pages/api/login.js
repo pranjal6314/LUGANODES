@@ -23,7 +23,10 @@ const handler = async (req, res) => {
     let user = await User.findOne({ email: req.body.email });
 
     if (user) {
-      const bytes = CryptoJS.AES.decrypt(user.password, "sec1234");
+      const bytes = CryptoJS.AES.decrypt(
+        user.password,
+        process.env.AUTH_SECRET
+      );
       var decryptedData = bytes.toString(CryptoJS.enc.Utf8);
     } else {
       res.status(200).json({ success: false, error: "no user found" });

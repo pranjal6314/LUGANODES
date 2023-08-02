@@ -9,7 +9,10 @@ const handler = async (req, res) => {
     const user = jsonewebtoken.verify(token, "ourkey");
     let dbuser = await User.findOne({ email: user.email });
     console.log(dbuser.password);
-    const bytes = CryptoJS.AES.decrypt(dbuser.password, "sec1234");
+    const bytes = CryptoJS.AES.decrypt(
+      dbuser.password,
+      process.env.AUTH_SECRET
+    );
     var decryptedData = bytes.toString(CryptoJS.enc.Utf8);
     console.log(decryptedData);
     if (
@@ -21,7 +24,7 @@ const handler = async (req, res) => {
         {
           password: CryptoJS.AES.encrypt(
             req.body.confirmPassword,
-            "sec1234"
+            process.env.AUTH_SECRET
           ).toString(),
         }
       );

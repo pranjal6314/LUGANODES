@@ -27,7 +27,7 @@ const handler = async (req, res) => {
           email: req.body.email,
           password: CryptoJS.AES.encrypt(
             req.body.password,
-            "sec1234"
+            process.env.AUTH_SECRET
           ).toString(),
         }
       );
