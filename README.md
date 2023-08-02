@@ -169,7 +169,7 @@ In order to run the project in development mode use:
 npm run dev
 ```
 
-In order to build the project and run, use:
+In order to build the project and run it, use:
 
 ```
 npm run build
@@ -178,7 +178,7 @@ npm start
 
 #### 1. Using Docker
 In order to test our service we first need to build and run docker-compose. Docker-compose will automate the build and the run of our two Dockerfile.
-To run this commands you must be in the repository’s root.
+To run these commands you must be in the repository’s root.
 1. Build the Image
 ```bash
 docker-compose build
@@ -187,8 +187,7 @@ docker-compose build
 ```bash
 docker-compose up -d
 ```
-Now we have and built the image and service is started for both **go** and **nginx** (used for reverse-proxy).
-The Nginx reverse proxy will send all request from `localhost/fortisafe/` to Golang service on port `3000`.
+
 
 > **Note that you will have to add your own `.env` file at the root directory and add your own environment variables for the project to build.**
 > Following are the environment variables used:
@@ -200,7 +199,7 @@ The Nginx reverse proxy will send all request from `localhost/fortisafe/` to Gol
 
 ## <img src="https://hpe-developer-portal.s3.amazonaws.com/uploads/media/2020/3/git-icon-1788c-1590702885345.png" width=32 height=32> Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 1. Fork the Project. [(Refer the get started instructions)](#-getting-started)
 2. Create your Feature Branch. (`git checkout -b feature/AmazingFeature`)
@@ -208,6 +207,39 @@ Contributions are what make the open source community such an amazing place to b
 4. Push to the Branch. (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request.
 
+
+##Screenshot🖼️
+### For Docker
+![image](https://github.com/pranjal6314/ApiHub/assets/77271332/dc1c0e54-ec02-48ab-91eb-fd5f6f0d897c)
+![image](https://github.com/pranjal6314/ApiHub/assets/77271332/70f17653-7b52-4fa4-a6c9-254669fe2c43)
+![image](https://github.com/pranjal6314/ApiHub/assets/77271332/9ef0efa2-dd6b-4c52-b893-8f6591908e43)
+![image](https://github.com/pranjal6314/ApiHub/assets/77271332/ff375b2e-79e5-4d0c-9686-72eccf381ef9)
+
+### login with Metamask
+![image](https://github.com/pranjal6314/ApiHub/assets/77271332/ec08ef63-d926-41ad-a4d6-205258359275)
+![image](https://github.com/pranjal6314/ApiHub/assets/77271332/01964a68-ac77-43c4-b63a-09d86f2b6ae1)
+
+### With Google Auth
+![image](https://github.com/pranjal6314/ApiHub/assets/77271332/8491acd7-5ea9-4efb-b0d2-5aa054b8b6d2)
+
+### Home Page
+![image](https://github.com/pranjal6314/LUGANODES/assets/77271332/34d00d48-b44c-41b7-9563-44991e92bad1)
+
+### After login with Metamask
+![image](https://github.com/pranjal6314/ApiHub/assets/77271332/28803fd4-4a38-4852-ae83-118b736188ab)
+![image](https://github.com/pranjal6314/ApiHub/assets/77271332/a5d3af5c-ea7f-4dcf-b1dd-5f4ec8951a55)
+
+![image](https://github.com/pranjal6314/ApiHub/assets/77271332/bf54fc77-f69b-43cb-8275-c9f462304a57)
+
+### Again visit the profile - the password section disappear because the password was already put in, now only we can update the password
+![image](https://github.com/pranjal6314/LUGANODES/assets/77271332/1d9e764a-c72d-4aab-8dc7-ac4220d197f5)
+![image](https://github.com/pranjal6314/ApiHub/assets/77271332/5898fcb6-1fad-43ae-8a58-ca850f59f3a7)
+
+
+### Now we can log in with the same email and password and the Metamask address is also connected to this account
+![image](https://github.com/pranjal6314/ApiHub/assets/77271332/1033fe9a-1f0d-47f8-a5e9-89d09d122a2a)
+![image](https://github.com/pranjal6314/ApiHub/assets/77271332/7c0dc76c-0cb7-4424-bd12-4e7542d12d2b)
+![image](https://github.com/pranjal6314/ApiHub/assets/77271332/ccebd83f-2bb8-4ffe-ab40-dffd24c9275e)
 ## License
 
 Distributed under the **MIT License**. See [`LICENSE`](https://github.com/Team-Fourth-Dimension/FFCSeZ/blob/master/LICENSE) for more information.
